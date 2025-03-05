@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.1.0"
+    alias(libs.plugins.kotlin.jvm)
 }
 
 group = "dev.syncended.sncd"
@@ -10,7 +10,13 @@ repositories {
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.kotlin.coroutines.core)
+
+    implementation(libs.ktor.server.core)
+    implementation(libs.ktor.server.netty)
+    implementation(libs.koin.core)
+    implementation(libs.kube.ktor)
 }
 
 tasks.test {
