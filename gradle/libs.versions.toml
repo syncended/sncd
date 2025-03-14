@@ -4,7 +4,7 @@ kotlin-coroutines = "1.10.1"
 
 ktor = "3.1.0"
 koin = "4.0.2"
-kube = "0.3.0"
+kube = "0.3.2"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }

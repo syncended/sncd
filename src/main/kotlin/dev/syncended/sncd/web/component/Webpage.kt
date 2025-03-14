@@ -4,10 +4,13 @@ import dev.syncended.kube.core.component.Layout
 import dev.syncended.kube.core.component.Modifier
 import dev.syncended.kube.core.component.fillMaxSize
 import dev.syncended.kube.core.component.fillMaxWidth
+import dev.syncended.kube.core.component.height
 import dev.syncended.kube.core.component.maxWidth
 import dev.syncended.kube.core.model.Alignment
+import dev.syncended.kube.core.model.percent
 import dev.syncended.kube.dsl.box
 import dev.syncended.kube.dsl.column
+import dev.syncended.kube.dsl.space
 
 fun Layout.webpage(body: Layout.() -> Unit) {
     box(
@@ -15,8 +18,13 @@ fun Layout.webpage(body: Layout.() -> Unit) {
         verticalAlignment = Alignment.Vertical.Center,
         horizontalAlignment = Alignment.Horizontal.Center
     ) {
-        column(modifier = Modifier.fillMaxWidth().maxWidth(Sizes.pageSize)) {
+        column(
+            modifier = Modifier.fillMaxSize().maxWidth(Sizes.pageSize),
+            alignment = Alignment.Horizontal.Center
+        ) {
+            space(modifier = Modifier.height(30.percent))
             body()
+            space(modifier = Modifier.height(70.percent))
         }
     }
 }
