@@ -1,14 +1,9 @@
-package dev.syncended.sncd.web.page
+package dev.syncended.sncd.web.index
 
 import dev.syncended.kube.core.component.Layout
 import dev.syncended.kube.core.component.Modifier
-import dev.syncended.kube.core.component.fillMaxWidth
 import dev.syncended.kube.core.component.marginBottom
-import dev.syncended.kube.core.component.marginTop
-import dev.syncended.kube.dsl.buttonInput
-import dev.syncended.kube.dsl.form
 import dev.syncended.kube.dsl.text
-import dev.syncended.kube.dsl.textInput
 import dev.syncended.kube.ktor.core.respondRender
 import dev.syncended.kube.styling.Size.rem05
 import dev.syncended.sncd.web.component.Sizes
@@ -26,8 +21,5 @@ private fun Layout.indexPage() = webpage {
         modifier = Modifier.marginBottom(rem05),
         textSize = Sizes.headingText
     )
-    form(modifier = Modifier.fillMaxWidth()) {
-        textInput(modifier = Modifier.fillMaxWidth())
-        buttonInput(text = "Shorten URL", modifier = Modifier.marginTop(rem05))
-    }
+    shortenerInput()
 }
