@@ -4,6 +4,7 @@ import dev.syncended.sncd.service.encoding.DecodeNumberUseCase
 import dev.syncended.sncd.service.encoding.EncodeNumberUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import org.koin.core.component.KoinComponent
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
@@ -18,6 +19,13 @@ private val serviceModule = module {
 
 val appModule = module {
     single { CoroutineScope(Dispatchers.IO) }
+    single { loadConfiguration() }
 
     includes(repositoryModule, serviceModule)
+}
+
+val staticComponent = object : KoinComponent {}
+
+inline fun <reified T : Any> inject(): Lazy<T> {
+    return staticComponent.getKoin().inject<T>()
 }

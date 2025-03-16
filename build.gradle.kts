@@ -17,6 +17,11 @@ dependencies {
     implementation(libs.ktor.server.netty)
     implementation(libs.koin.core)
     implementation(libs.kube.ktor)
+
+    implementation(libs.exposed.core)
+    implementation(libs.hikari)
+    runtimeClasspath(libs.h2)
+    runtimeClasspath(libs.postgresql)
 }
 
 tasks.test {
