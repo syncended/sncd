@@ -16,9 +16,8 @@ import io.ktor.server.routing.post
 fun Routing.postShortener() = post("/shortener") {
     val formInput = call.receiveParameters()
     val url = formInput[FormData.URL]
+
 }
-
-
 
 fun Layout.shortenerInput() {
     form(modifier = Modifier.fillMaxWidth()) {

@@ -22,9 +22,9 @@ fun Layout.webpage(body: Layout.() -> Unit) {
             modifier = Modifier.fillMaxSize().maxWidth(Sizes.pageSize),
             alignment = Alignment.Horizontal.Center
         ) {
-            space(modifier = Modifier.height(30.percent))
+            space(modifier = Modifier.height(40.percent))
             body()
-            space(modifier = Modifier.height(70.percent))
+            space(modifier = Modifier.height(60.percent))
         }
     }
 }
