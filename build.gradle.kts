@@ -19,6 +19,7 @@ dependencies {
     implementation(libs.kube.ktor)
 
     implementation(libs.exposed.core)
+    implementation(libs.exposed.jdbc)
     implementation(libs.hikari)
     runtimeClasspath(libs.h2)
     runtimeClasspath(libs.postgresql)

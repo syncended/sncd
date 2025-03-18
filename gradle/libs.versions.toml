@@ -21,6 +21,7 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 kube-ktor = { module = "dev.syncended:kube-ktor", version.ref = "kube" }
 
 exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
 hikari = { module = "com.zaxxer:HikariCP", version.ref = "hikari" }
 h2 = { module = "com.h2database:h2", version.ref = "h2" }
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
