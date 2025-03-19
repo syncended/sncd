@@ -3,11 +3,17 @@ package dev.syncended.sncd.app
 import dev.syncended.sncd.repository.url.UrlRepository
 import dev.syncended.sncd.service.encoding.DecodeNumberUseCase
 import dev.syncended.sncd.service.encoding.EncodeNumberUseCase
+import dev.syncended.sncd.service.encoding.EncodeSecretKeyUseCase
+import dev.syncended.sncd.service.operation.CreateShortUrlUseCase
+import dev.syncended.sncd.service.url.ExtractShortUrlUseCase
+import dev.syncended.sncd.service.url.GenerateSecretKeyUseCase
+import dev.syncended.sncd.service.validation.ValidateUrlUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import org.koin.core.component.KoinComponent
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
+import kotlin.random.Random
 
 private val repositoryModule = module {
     singleOf(::UrlRepository)
@@ -16,11 +22,20 @@ private val repositoryModule = module {
 private val serviceModule = module {
     singleOf(::DecodeNumberUseCase)
     singleOf(::EncodeNumberUseCase)
+    singleOf(::EncodeSecretKeyUseCase)
+
+    singleOf(::ExtractShortUrlUseCase)
+    singleOf(::GenerateSecretKeyUseCase)
+
+    singleOf(::ValidateUrlUseCase)
+
+    singleOf(::CreateShortUrlUseCase)
 }
 
 val appModule = module {
     single { CoroutineScope(Dispatchers.IO) }
     single { loadConfiguration() }
+    single { Random(System.currentTimeMillis()) }
 
     includes(repositoryModule, serviceModule)
 }
