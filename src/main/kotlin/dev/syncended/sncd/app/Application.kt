@@ -2,11 +2,13 @@ package dev.syncended.sncd.app
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import dev.syncended.sncd.model.table.UrlTable
 import dev.syncended.sncd.web.webRouting
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.server.routing.routing
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
 import org.koin.core.context.startKoin
 
 fun main() {
@@ -24,6 +26,9 @@ private fun bootstrapDatabase() {
     }
     val datasource = HikariDataSource(config)
     Database.connect(datasource)
+    if (configuration.isDebug) {
+        SchemaUtils.createStatements(UrlTable)
+    }
 }
 
 private fun runWebserver() = embeddedServer(

@@ -1,5 +1,6 @@
 package dev.syncended.sncd.app
 
+import dev.syncended.sncd.repository.url.UrlRepository
 import dev.syncended.sncd.service.encoding.DecodeNumberUseCase
 import dev.syncended.sncd.service.encoding.EncodeNumberUseCase
 import kotlinx.coroutines.CoroutineScope
@@ -9,7 +10,7 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 private val repositoryModule = module {
-
+    singleOf(::UrlRepository)
 }
 
 private val serviceModule = module {
