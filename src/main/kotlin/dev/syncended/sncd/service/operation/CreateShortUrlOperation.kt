@@ -6,7 +6,7 @@ import dev.syncended.sncd.service.url.GenerateUrlUseCase
 import dev.syncended.sncd.service.validation.ValidateUrlUseCase
 
 class CreateShortUrlOperation(
-    private val extractShortUrlUseCase: ExtractShortUrlUseCase,
+    private val extractShortKeyUseCase: ExtractShortUrlUseCase,
     private val generateUrlUseCase: GenerateUrlUseCase,
     private val validateUrlUseCase: ValidateUrlUseCase,
     private val urlRepository: UrlRepository,
@@ -16,6 +16,6 @@ class CreateShortUrlOperation(
         return validateUrlUseCase(url)
             .map { generateUrlUseCase(url) }
             .mapCatching { urlRepository.insert(it).getOrThrow() }
-            .map { extractShortUrlUseCase(it) }
+            .map { extractShortKeyUseCase(it) }
     }
 }

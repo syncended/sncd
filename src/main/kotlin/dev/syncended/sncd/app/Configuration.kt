@@ -1,6 +1,7 @@
 package dev.syncended.sncd.app
 
 data class Configuration(
+    val host: String,
     val isDebug: Boolean,
     val database: DbConfig
 )
@@ -11,6 +12,7 @@ data class DbConfig(
 )
 
 fun loadConfiguration(): Configuration = Configuration(
+    host = propertyOrDefault("host", "http://localhost/"),
     isDebug = propertyOrDefault("production", "").isBlank(),
     database = loadDbConfig()
 )

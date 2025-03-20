@@ -2,8 +2,10 @@ package dev.syncended.sncd.app
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import dev.syncended.kube.ktor.core.KubeCore
 import dev.syncended.sncd.model.table.UrlTable
 import dev.syncended.sncd.web.webRouting
+import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.server.routing.routing
@@ -37,5 +39,6 @@ private fun runWebserver() = embeddedServer(
     host = "0.0.0.0",
     port = 80,
 ) {
+    install(KubeCore) { useHtmx = true }
     routing { webRouting() }
 }.start(wait = true)
