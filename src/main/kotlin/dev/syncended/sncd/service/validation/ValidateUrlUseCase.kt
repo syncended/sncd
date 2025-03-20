@@ -4,7 +4,7 @@ import dev.syncended.sncd.model.exception.InvalidUrlException
 
 class ValidateUrlUseCase {
 
-    fun invoke(url: String): Result<Unit> = if (URL_REGEX.matches(url)) {
+    operator fun invoke(url: String): Result<Unit> = if (URL_REGEX.matches(url)) {
         Result.success(Unit)
     } else {
         Result.failure(InvalidUrlException(url))

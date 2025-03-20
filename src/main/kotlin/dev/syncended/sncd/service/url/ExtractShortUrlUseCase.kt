@@ -5,13 +5,13 @@ import dev.syncended.sncd.service.encoding.EncodeNumberUseCase
 import dev.syncended.sncd.service.encoding.EncodeSecretKeyUseCase
 
 class ExtractShortUrlUseCase(
-    private val encodeSecretKey: EncodeSecretKeyUseCase,
-    private val encodeNumber: EncodeNumberUseCase
+    private val encodeSecretKeyUseCase: EncodeSecretKeyUseCase,
+    private val encodeNumberUseCase: EncodeNumberUseCase
 ) {
 
-    fun invoke(key: UrlKey): String {
-        val secretPart = encodeSecretKey.invoke(key.secretKey)
-        val sequencePart = encodeNumber.invoke(key.id.value)
+    operator fun invoke(key: UrlKey): String {
+        val secretPart = encodeSecretKeyUseCase(key.secretKey)
+        val sequencePart = encodeNumberUseCase(key.id.value)
         return "$secretPart$sequencePart"
     }
 }

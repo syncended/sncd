@@ -4,7 +4,7 @@ import dev.syncended.sncd.model.Encoding
 
 class EncodeNumberUseCase {
 
-    fun invoke(number: Int) = buildString {
+    operator fun invoke(number: Int) = buildString {
         var value = number
         while (value != 0) {
             val charIndex = value % Encoding.BASE

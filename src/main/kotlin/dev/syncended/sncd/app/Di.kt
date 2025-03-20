@@ -4,9 +4,9 @@ import dev.syncended.sncd.repository.url.UrlRepository
 import dev.syncended.sncd.service.encoding.DecodeNumberUseCase
 import dev.syncended.sncd.service.encoding.EncodeNumberUseCase
 import dev.syncended.sncd.service.encoding.EncodeSecretKeyUseCase
-import dev.syncended.sncd.service.operation.CreateShortUrlUseCase
+import dev.syncended.sncd.service.operation.CreateShortUrlOperation
 import dev.syncended.sncd.service.url.ExtractShortUrlUseCase
-import dev.syncended.sncd.service.url.GenerateSecretKeyUseCase
+import dev.syncended.sncd.service.generator.GenerateSecretKeyUseCase
 import dev.syncended.sncd.service.validation.ValidateUrlUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +29,7 @@ private val serviceModule = module {
 
     singleOf(::ValidateUrlUseCase)
 
-    singleOf(::CreateShortUrlUseCase)
+    singleOf(::CreateShortUrlOperation)
 }
 
 val appModule = module {

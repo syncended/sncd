@@ -5,17 +5,17 @@ import dev.syncended.sncd.service.url.ExtractShortUrlUseCase
 import dev.syncended.sncd.service.url.GenerateUrlUseCase
 import dev.syncended.sncd.service.validation.ValidateUrlUseCase
 
-class CreateShortUrlUseCase(
-    private val extractShortUrl: ExtractShortUrlUseCase,
-    private val generateUrl: GenerateUrlUseCase,
-    private val validateUrl: ValidateUrlUseCase,
+class CreateShortUrlOperation(
+    private val extractShortUrlUseCase: ExtractShortUrlUseCase,
+    private val generateUrlUseCase: GenerateUrlUseCase,
+    private val validateUrlUseCase: ValidateUrlUseCase,
     private val urlRepository: UrlRepository,
 ) {
 
-    suspend fun invoke(url: String): Result<String> {
-        return validateUrl.invoke(url)
-            .map { generateUrl.invoke(url) }
+    suspend operator fun invoke(url: String): Result<String> {
+        return validateUrlUseCase(url)
+            .map { generateUrlUseCase(url) }
             .mapCatching { urlRepository.insert(it).getOrThrow() }
-            .map { extractShortUrl.invoke(it) }
+            .map { extractShortUrlUseCase(it) }
     }
 }
