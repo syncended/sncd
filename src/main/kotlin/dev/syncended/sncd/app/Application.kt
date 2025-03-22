@@ -30,7 +30,7 @@ private fun bootstrapDatabase() {
     val datasource = HikariDataSource(config)
     Database.connect(datasource)
     if (configuration.isDebug) {
-        transaction { SchemaUtils.createStatements(UrlTable) }
+        transaction{ SchemaUtils.create(UrlTable) }
     }
 }
 

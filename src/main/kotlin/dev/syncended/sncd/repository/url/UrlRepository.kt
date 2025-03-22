@@ -10,6 +10,7 @@ import dev.syncended.sncd.model.url.toUrlId
 import dev.syncended.sncd.utls.safeSuspendTransaction
 import dev.syncended.sncd.utls.suspendReadOnlyTransaction
 import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.insertReturning
 import org.jetbrains.exposed.sql.selectAll
 
@@ -27,9 +28,7 @@ class UrlRepository {
     }
 
     suspend fun insert(url: Url): Result<UrlKey> = safeSuspendTransaction {
-        UrlTable.insertReturning(listOf(UrlTable.id)) { url.toRecord(it) }
-            .first()[UrlTable.id]
-            .toUrlId()
-            .let { UrlKey(id = it, secretKey = url.secretKey) }
+        val id = UrlTable.insert { url.toRecord(it) } get UrlTable.id
+        UrlKey(id = id.toUrlId(), secretKey = url.secretKey)
     }
 }

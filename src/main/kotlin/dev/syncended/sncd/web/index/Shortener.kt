@@ -12,6 +12,7 @@ import dev.syncended.kube.dsl.text
 import dev.syncended.kube.dsl.textInput
 import dev.syncended.kube.htmx.modifier.hxPost
 import dev.syncended.kube.ktor.core.respondRender
+import dev.syncended.kube.styling.Colors
 import dev.syncended.kube.styling.Size.rem05
 import dev.syncended.sncd.app.inject
 import dev.syncended.sncd.model.FormData
@@ -30,11 +31,11 @@ fun Routing.postShortener() = post("/shortener") {
     call.respondRender(mode = RenderMode.VIEW_ONLY) {
         operationResult
             .onSuccess { shortUrl(it) }
-            .onFailure { shortenerInput() }
+            .onFailure { shortenerInput(it.toString()) }
     }
 }
 
-fun Layout.shortenerInput() {
+fun Layout.shortenerInput(error: String? = null) {
     form(
         modifier = Modifier.fillMaxWidth()
             .hxPost("/shortener")
@@ -43,6 +44,7 @@ fun Layout.shortenerInput() {
             modifier = Modifier.fillMaxWidth(),
             name = FormData.URL
         )
+        error?.let { text(error, color = Colors.red) }
         buttonInput(
             text = "Shorten URL",
             modifier = Modifier.marginTop(rem05),
