@@ -2,12 +2,15 @@ package dev.syncended.sncd.app
 
 import dev.syncended.sncd.repository.url.UrlRepository
 import dev.syncended.sncd.service.encoding.DecodeNumberUseCase
+import dev.syncended.sncd.service.encoding.DecodeUrlKeyUseCase
 import dev.syncended.sncd.service.encoding.EncodeNumberUseCase
 import dev.syncended.sncd.service.encoding.EncodeSecretKeyUseCase
 import dev.syncended.sncd.service.operation.CreateShortUrlOperation
 import dev.syncended.sncd.service.url.ExtractShortUrlUseCase
 import dev.syncended.sncd.service.generator.GenerateSecretKeyUseCase
+import dev.syncended.sncd.service.operation.GetRedirectUrlOperation
 import dev.syncended.sncd.service.url.GenerateUrlUseCase
+import dev.syncended.sncd.service.validation.ValidateUrlKeyUseCase
 import dev.syncended.sncd.service.validation.ValidateUrlUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +27,7 @@ private val serviceModule = module {
     singleOf(::DecodeNumberUseCase)
     singleOf(::EncodeNumberUseCase)
     singleOf(::EncodeSecretKeyUseCase)
+    singleOf(::DecodeUrlKeyUseCase)
 
     singleOf(::GenerateSecretKeyUseCase)
 
@@ -31,8 +35,10 @@ private val serviceModule = module {
     singleOf(::GenerateUrlUseCase)
 
     singleOf(::ValidateUrlUseCase)
+    singleOf(::ValidateUrlKeyUseCase)
 
     singleOf(::CreateShortUrlOperation)
+    singleOf(::GetRedirectUrlOperation)
 }
 
 val appModule = module {
