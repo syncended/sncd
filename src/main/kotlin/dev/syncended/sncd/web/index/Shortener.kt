@@ -25,13 +25,12 @@ private val createShortUrlOperation by inject<CreateShortUrlOperation>()
 fun Routing.postShortener() = post("/shortener") {
     val formInput = call.receiveParameters()
     val url = formInput[FormData.URL]
+    val operationResult = createShortUrlOperation(url)
 
-    if (url == null) {
-        call.respondRender(mode = RenderMode.VIEW_ONLY) { shortenerInput() }
-    } else {
-        createShortUrlOperation(url)
-            .onSuccess { call.respondRender(mode = RenderMode.VIEW_ONLY) { shortUrl(it) } }
-            .onFailure { call.respondRender(mode = RenderMode.VIEW_ONLY) { shortenerInput() } }
+    call.respondRender(mode = RenderMode.VIEW_ONLY) {
+        operationResult
+            .onSuccess { shortUrl(it) }
+            .onFailure { shortenerInput() }
     }
 }
 

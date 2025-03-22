@@ -12,7 +12,8 @@ class CreateShortUrlOperation(
     private val urlRepository: UrlRepository,
 ) {
 
-    suspend operator fun invoke(url: String): Result<String> {
+    suspend operator fun invoke(url: String?): Result<String> {
+        url ?: return Result.failure(NullPointerException("url is null"))
         return validateUrlUseCase(url)
             .map { generateUrlUseCase(url) }
             .mapCatching { urlRepository.insert(it).getOrThrow() }
