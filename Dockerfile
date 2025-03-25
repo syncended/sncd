@@ -25,7 +25,6 @@ WORKDIR /service
 COPY deploy/YaCA.crt YaCA.crt
 COPY --from=builder /service/build/libs/service.jar service.jar
 
-RUN keytool -import -noprompt -trustcacerts -alias YaRoot -file /service/YaCA.crt \
-    -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit
+RUN keytool -import -noprompt -trustcacerts -alias YaRoot -file /service/YaCA.crt -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit
 
 CMD ["java", "-jar", "service.jar"]
