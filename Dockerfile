@@ -16,9 +16,8 @@ ENV DATABASE_PASSWORD $DATABASE_PASSWORD
 FROM jdk as builder
 WORKDIR /service
 
-COPY . service/source
+COPY . .
 RUN ./gradlew :shadowJar
-RUN mv /service/build/libs/service.jar /service/service.jar
 
 FROM jdk as runner
 WORKDIR /service
