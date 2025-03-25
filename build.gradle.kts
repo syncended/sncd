@@ -4,10 +4,15 @@ import java.nio.file.StandardCopyOption
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.shadow)
+    application
 }
 
 group = "dev.syncended.sncd"
 version = "1.0-SNAPSHOT"
+
+application {
+    mainClass = "dev.syncended.sncd.app.ApplicationKt"
+}
 
 repositories {
     mavenCentral()
