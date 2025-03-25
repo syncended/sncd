@@ -8,7 +8,9 @@ data class Configuration(
 
 data class DbConfig(
     val driverName: String,
-    val jdbcUrl: String
+    val jdbcUrl: String,
+    val dbUser: String,
+    val dbPassword: String
 )
 
 fun loadConfiguration(): Configuration = Configuration(
@@ -25,9 +27,17 @@ private fun loadDbConfig(): DbConfig = DbConfig(
     jdbcUrl = propertyOrDefault(
         propertyName = "database_url",
         default = "jdbc:h2:mem:inmem_db"
-    )
+    ),
+    dbUser = propertyOrDefault(
+        propertyName = "database_user",
+        default = "testuser"
+    ),
+    dbPassword =  propertyOrDefault(
+        propertyName = "database_password",
+        default = "testpassword"
+    ),
 )
 
 private fun propertyOrDefault(propertyName: String, default: String): String {
-    return System.getenv()[propertyName] ?: default
+    return System.getenv()[propertyName.uppercase()] ?: default
 }

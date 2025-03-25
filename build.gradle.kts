@@ -1,5 +1,9 @@
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.shadow)
 }
 
 group = "dev.syncended.sncd"
@@ -25,9 +29,18 @@ dependencies {
     runtimeClasspath(libs.postgresql)
 }
 
-tasks.test {
-    useJUnitPlatform()
+tasks.withType<Jar> {
+    doLast {
+        val arch = archiveFile.get().asFile
+        val serviceFile = File(arch.parentFile, "service.jar")
+        Files.copy(
+            arch.toPath(),
+            serviceFile.toPath(),
+            StandardCopyOption.REPLACE_EXISTING
+        )
+    }
 }
+
 kotlin {
     jvmToolchain(21)
 }

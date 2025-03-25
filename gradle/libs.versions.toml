@@ -11,6 +11,8 @@ hikari = "6.2.1"
 h2 = "2.3.232"
 postgresql = "42.7.5"
 
+shadow = "9.0.0-beta9"
+
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
@@ -28,3 +30,4 @@ postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" 
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }

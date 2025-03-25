@@ -24,13 +24,15 @@ private fun bootstrapDatabase() {
     val configuration by inject<Configuration>()
     val config = HikariConfig().apply {
         jdbcUrl = configuration.database.jdbcUrl
+        username = configuration.database.dbUser
+        password = configuration.database.dbPassword
         driverClassName = configuration.database.driverName
         maximumPoolSize = 32
     }
     val datasource = HikariDataSource(config)
     Database.connect(datasource)
     if (configuration.isDebug) {
-        transaction{ SchemaUtils.create(UrlTable) }
+        transaction { SchemaUtils.create(UrlTable) }
     }
 }
 
