@@ -23,7 +23,7 @@ RUN mv /service/build/libs/service.jar /service/service.jar
 FROM jdk as runner
 WORKDIR /service
 
-COPY certs/YaCA.crt YaCA.crt
+COPY deploy/YaCA.crt YaCA.crt
 COPY --from=builder /service/build/libs/service.jar service.jar
 
 RUN keytool -import -noprompt -trustcacerts -alias YaRoot -file /service/YaCA.crt \
