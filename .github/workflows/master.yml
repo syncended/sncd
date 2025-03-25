@@ -33,7 +33,7 @@ jobs:
             DATABASE_URL=${{ secrets.DATABASE_URL }}
             DATABASE_USER=${{ secrets.DATABASE_USER }}
             DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
-            HOST=https://sncd.ru
+            HOST=https://sncd.ru/
 
   build-cc-image:
     name: Build cc.syncended.dev image
@@ -62,4 +62,4 @@ jobs:
             DATABASE_URL=${{ secrets.DATABASE_URL }}
             DATABASE_USER=${{ secrets.DATABASE_USER }}
             DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
-            HOST=https://cc.syncended.dev
+            HOST=https://cc.syncended.dev/
