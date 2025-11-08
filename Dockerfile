@@ -1,4 +1,4 @@
-FROM openjdk:21-jdk-slim as jdk
+FROM openjdk:21-ea-jdk-slim
 
 # S3 settings
 ARG HOST
@@ -13,18 +13,10 @@ ENV DATABASE_URL $DATABASE_URL
 ENV DATABASE_USER $DATABASE_USER
 ENV DATABASE_PASSWORD $DATABASE_PASSWORD
 
-FROM jdk as builder
-WORKDIR /service
-
-COPY . .
-RUN ./gradlew :shadowJar
-
-FROM jdk as runner
 WORKDIR /service
 
 COPY deploy/YaCA.crt YaCA.crt
-COPY --from=builder /service/build/libs/service.jar service.jar
-
+COPY build/libs/service.jar service.jar
 RUN keytool -import -noprompt -trustcacerts -alias YaRoot -file /service/YaCA.crt -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit
 
 CMD ["java", "-jar", "service.jar"]
