@@ -14,7 +14,17 @@ jobs:
     steps:
       - name: Checkout branch
         uses: actions/checkout@v3
+        
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'gradle'
 
+      - name: Build executable jar
+        run: ./gradlew :shadowJar --no-daemon
+        
       - name: Login to Docker Registry
         uses: docker/login-action@v3
         with:
@@ -26,38 +36,10 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./Dockerfile
           push: true
-          tags: "${{ secrets.DOCKER_REGISTRY }}/sncd:main"
-          build-args: |
-            DATABASE_URL=${{ secrets.DATABASE_URL }}
-            DATABASE_USER=${{ secrets.DATABASE_USER }}
-            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
-            HOST=https://sncd.ru/
-
-  build-cc-image:
-    name: Build cc.syncended.dev image
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-
-    steps:
-      - name: Checkout branch
-        uses: actions/checkout@v3
-
-      - name: Login to Docker Registry
-        uses: docker/login-action@v3
-        with:
-          registry: cr.yandex
-          username: json_key
-          password: ${{ secrets.DOCKER_REGISTRY_TOKEN }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: .
           file: ./Dockerfile
-          push: true
-          tags: "${{ secrets.DOCKER_REGISTRY }}/sncd:cc"
+          platforms: linux/arm64, linux/amd64
+          tags: "${{ secrets.DOCKER_REGISTRY }}/sncd:latest"
           build-args: |
             DATABASE_URL=${{ secrets.DATABASE_URL }}
             DATABASE_USER=${{ secrets.DATABASE_USER }}
